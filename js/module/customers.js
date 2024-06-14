@@ -12,10 +12,6 @@ export const getAllLastNameDESC = async()=>{
 
 
 
-
-// Consultas clase 12/06/2024
-
-
 // 3.Detalles de un cliente específico (por ejemplo, customerNumber = 101):
 
 
