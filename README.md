@@ -96,3 +96,118 @@
    GROUP BY offices.officeCode, offices.city;
    ```
 
+6. **Obtener detalles de los pedidos, incluyendo la información del cliente y los productos ordenados:**
+
+   ```sql
+   SELECT 
+       o.orderNumber,
+       o.orderDate,
+       o.status,
+       c.customerName,
+       c.contactLastName,
+       c.contactFirstName,
+       c.phone,
+       p.productName,
+       od.quantityOrdered,
+       od.priceEach
+   FROM 
+       orders o
+   JOIN 
+       customers c ON o.customerNumber = c.customerNumber
+   JOIN 
+       orderdetails od ON o.orderNumber = od.orderNumber
+   JOIN 
+       products p ON od.productCode = p.productCode
+   ORDER BY 
+       o.orderNumber;
+   ```
+
+7. **Listar todos los pagos realizados, junto con la información del cliente y su representante de ventas:**
+
+   ```sql
+   SELECT 
+       p.customerNumber,
+       c.customerName,
+       c.contactLastName,
+       c.contactFirstName,
+       c.phone,
+       e.firstName AS salesRepFirstName,
+       e.lastName AS salesRepLastName,
+       p.checkNumber,
+       p.paymentDate,
+       p.amount
+   FROM 
+       payments p
+   JOIN 
+       customers c ON p.customerNumber = c.customerNumber
+   LEFT JOIN 
+       employees e ON c.salesRepEmployeeNumber = e.employeeNumber
+   ORDER BY 
+       p.paymentDate;
+   ```
+
+8. **Obtener una lista de todos los productos, junto con sus líneas de productos y el total de cantidad ordenada:**
+
+   ```sql
+   SELECT 
+       p.productCode,
+       p.productName,
+       pl.productLine,
+       SUM(od.quantityOrdered) AS totalQuantityOrdered
+   FROM 
+       products p
+   JOIN 
+       productlines pl ON p.productLine = pl.productLine
+   LEFT JOIN 
+       orderdetails od ON p.productCode = od.productCode
+   GROUP BY 
+       p.productCode, p.productName, pl.productLine
+   ORDER BY 
+       totalQuantityOrdered DESC;
+   ```
+
+9. **Listar todos los pedidos con detalles del cliente y el nombre del representante de ventas:**
+
+   ```sql
+   SELECT 
+       o.orderNumber,
+       o.orderDate,
+       o.status,
+       c.customerName,
+       c.contactLastName,
+       c.contactFirstName,
+       e.firstName AS salesRepFirstName,
+       e.lastName AS salesRepLastName
+   FROM 
+       orders o
+   JOIN 
+       customers c ON o.customerNumber = c.customerNumber
+   LEFT JOIN 
+       employees e ON c.salesRepEmployeeNumber = e.employeeNumber
+   ORDER BY 
+       o.orderDate;
+   ```
+
+10. **Obtener el total de pagos realizados por cada cliente y el nombre del representante de ventas asignado:**
+
+   ```sql
+SELECT 
+    p.customerNumber,
+    c.customerName,
+    c.contactLastName,
+    c.contactFirstName,
+    e.firstName AS salesRepFirstName,
+    e.lastName AS salesRepLastName,
+    SUM(p.amount) AS totalPayments
+FROM 
+    payments p
+JOIN 
+    customers c ON p.customerNumber = c.customerNumber
+LEFT JOIN 
+    employees e ON c.salesRepEmployeeNumber = e.employeeNumber
+GROUP BY 
+    p.customerNumber, c.customerName, c.contactLastName, c.contactFirstName, e.firstName, e.lastName
+ORDER BY 
+    totalPayments DESC;
+   ```
+
