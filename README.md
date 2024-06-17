@@ -191,23 +191,23 @@
 10. **Obtener el total de pagos realizados por cada cliente y el nombre del representante de ventas asignado:**
 
    ```sql
-SELECT 
-    p.customerNumber,
-    c.customerName,
-    c.contactLastName,
-    c.contactFirstName,
-    e.firstName AS salesRepFirstName,
-    e.lastName AS salesRepLastName,
-    SUM(p.amount) AS totalPayments
-FROM 
-    payments p
-JOIN 
-    customers c ON p.customerNumber = c.customerNumber
-LEFT JOIN 
-    employees e ON c.salesRepEmployeeNumber = e.employeeNumber
-GROUP BY 
-    p.customerNumber, c.customerName, c.contactLastName, c.contactFirstName, e.firstName, e.lastName
-ORDER BY 
-    totalPayments DESC;
+    SELECT 
+        p.customerNumber,
+        c.customerName,
+        c.contactLastName,
+        c.contactFirstName,
+        e.firstName AS salesRepFirstName,
+        e.lastName AS salesRepLastName,
+        SUM(p.amount) AS totalPayments
+    FROM 
+        payments p
+    JOIN 
+        customers c ON p.customerNumber = c.customerNumber
+    LEFT JOIN 
+        employees e ON c.salesRepEmployeeNumber = e.employeeNumber
+    GROUP BY 
+        p.customerNumber, c.customerName, c.contactLastName, c.contactFirstName, e.firstName, e.lastName
+    ORDER BY 
+        totalPayments DESC;
    ```
 
