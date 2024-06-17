@@ -54,3 +54,27 @@ export const getProductTotalOrdered = async () => {
     `);
     return result;
 }
+
+
+// 8. Obtener una lista de todos los productos, junto con sus líneas de productos y el total de cantidad ordenada:
+
+export const getProductsWithLineProductsAndQuantityOrdered = async () => {
+    const result = await connection.query(`
+    SELECT 
+        p.productCode,
+        p.productName,
+        pl.productLine,
+        SUM(od.quantityOrdered) AS totalQuantityOrdered
+    FROM 
+        products p
+    JOIN 
+        productlines pl ON p.productLine = pl.productLine
+    LEFT JOIN 
+        orderdetails od ON p.productCode = od.productCode
+    GROUP BY 
+        p.productCode, p.productName, pl.productLine
+    ORDER BY 
+        totalQuantityOrdered DESC;
+    `);
+    return result;
+}

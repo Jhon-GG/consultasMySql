@@ -23,12 +23,14 @@ import {
 } from "./js/module/offices.js";
 
 import { 
-    fetchShippedOrders
+    fetchShippedOrders,
+    getAllOrdersWithClientsAndOrderedProducts
 } from "./js/module/orders.js";
 
 
 import { 
-    fetchCustomerPaymentsByCustomerNumber
+    fetchCustomerPaymentsByCustomerNumber,
+    getAllPaymentsWithClientsInformationAndSalesRepre
 } from "./js/module/payments.js";
 
 import { 
@@ -41,42 +43,6 @@ import {
 
 
 
-/* 
-console.log(await getAllLastNameDESC()); */
 
+console.log(await getAllPaymentsWithClientsInformationAndSalesRepre());
 
-/* console.log(await getCustomerInfoById()); */
-
-/* console.log(await getCustomersByCity()); */
-
-/* console.log(await getAllCustomers()); */
-
-
-/* console.log(await getEmployeesByOffice()); */
-
-/* console.log(await getEmployeesWithReportsTo()); */
-
-/* console.log(await fetchEmployees()); */
-/* 
-console.log(await fetchOfficesByCountry()); */
-
-
-/* console.log(await fetchOfficeEmployeeCounts()); */
-/* 
-console.log(await fetchShippedOrders()); */
-
-/* 
-console.log(await fetchCustomerPayments()); */
-
-
-/* 
-console.log(await fetchCustomerPaymentsByCustomerNumber()); */
-
-
-/* console.log(await getProductStock()); */
-
-/* console.log(await getTotalStockQuantity()); */
-
-/* console.log(await getProductsByPriceGreaterThan50()); */
-
-console.log(await getProductTotalOrdered());
